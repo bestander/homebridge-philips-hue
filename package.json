@@ -1,6 +1,6 @@
 {
     "name": "@bestander/homebridge-philips-hue",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "displayName": "Homebridge Philips Color Lamp interface",
     "description": "",
     "main": "index.js",
