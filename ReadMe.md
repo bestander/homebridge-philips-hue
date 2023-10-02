@@ -23,5 +23,5 @@ Required Packages for [dbus](https://github.com/Shouqun/node-dbus):
 }
 ```
 
-To find your device uuid, use `hcitool lescan`, grab the device uuid
-
+To find your device uuid, use `hcitool lescan`, grab the device uuid.  
+You need to make the lamp pairable before the plugin can connect to it, for that go to Hue App -> Settings -> Voice assistants -> Alexa -> Make discoverable
