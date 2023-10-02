@@ -33,7 +33,7 @@ function LedLamp(log, config, api) {
 
   this.log('Device Address:', this.address);
 
-  this.device = new Device(this.address);
+  this.device = new Device(this.address, log);
 }
 
 LedLamp.prototype = {

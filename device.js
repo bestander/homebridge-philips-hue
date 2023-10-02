@@ -21,7 +21,7 @@ bluetooth.init().then(async () => {
     new BluezAgent(bluetooth, bluetooth.getUserServiceObject(), "1234"),
     "KeyboardOnly"
   );
-  console.log("Agent registered, starting discovery");
+  console.log("Bluetooth Agent registered, starting discovery");
 
   // listen on first bluetooth adapter
   const adapter = await bluetooth.getAdapter();
@@ -40,9 +40,9 @@ const debounce = (callback, wait) => {
 };
 
 module.exports = class Device {
-  constructor(deviceAddress) {
+  constructor(deviceAddress, log) {
     this.deviceAddress = deviceAddress;
-
+    this.log = log;
     this.power = false;
     this.brightness = 100;
     this.discovered = false;
@@ -54,11 +54,11 @@ module.exports = class Device {
       if (this.deviceAddress !== address) {
         return;
       }
-      console.log(`Discovered device ${address}`, props);
+      this.log(`Discovered device ${address}`, props);
       this.discovered = true;
       const { onOffCharacteristic, brightnessCharacteristic } =
         await this.getCharacteristics();
-      console.log("got intial values");
+      this.log("got intial values");
       const onOffValue = await onOffCharacteristic.ReadValue();
       this.power = Uint8Array.from(onOffValue)[0] === 1;
       const brightnessValue = await onOffCharacteristic.ReadValue();
@@ -72,22 +72,22 @@ module.exports = class Device {
     if (!this.discovered) {
       throw new Error("never discovered");
     }
-    console.log("connect");
+    this.log("connect");
     const device = await bluetooth.getDevice(this.deviceAddress);
-    console.log(`Got device ${this.deviceAddress}`);
+    this.log(`Got device ${this.deviceAddress}`);
     const connected = false; // await device.Connected();
-    console.log("connect is connected?", connected);
+    this.log("connect is connected?", connected);
     if (!connected) {
-      console.log("connecting");
+      this.log("connecting");
       await device.Connect();
-      console.log("Connected");
+      this.log("Connected");
       if (!(await device.Paired())) {
-        console.log("Pairing");
+        this.log("Pairing");
         await device.Pair();
       }
-      console.log("Paired");
+      this.log("Paired");
     }
-    console.log("getting service");
+    this.log("getting service");
     const service = await device.getService(
       "932c32bd-0000-47a2-835a-a8d455b859dd"
     );
@@ -104,7 +104,7 @@ module.exports = class Device {
   }
 
   async updateGattCharacteristics() {
-    console.log("updateGattCharacteristics");
+    this.log("updateGattCharacteristics");
     const { onOffCharacteristic, brightnessCharacteristic } =
       await this.getCharacteristics();
     await onOffCharacteristic.WriteValue([this.power ? 1 : 0]);
@@ -116,13 +116,13 @@ module.exports = class Device {
   }
 
   async set_power(status) {
-    console.log("set_power");
+    this.log("set_power");
     this.power = status;
     this.updateGattCharacteristicsDebounced();
   }
 
   async set_brightness(level) {
-    console.log("set_brightness");
+    this.log("set_brightness");
     this.brightness = level;
     this.updateGattCharacteristicsDebounced();
   }
