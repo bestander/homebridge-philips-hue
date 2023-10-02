@@ -19,7 +19,7 @@ Required Packages for [dbus](https://github.com/Shouqun/node-dbus):
 {
     "accessory": "HueLamp", // Dont change
     "name": "LED", // Accessory name
-    "uuid": "DE:7E:3F:AB:50:A1" // BLE device UUID
+    "address": "DE:7E:3F:AB:50:A1" // BLE device UUID
 }
 ```
 
