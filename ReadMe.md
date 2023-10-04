@@ -1,7 +1,7 @@
 # @bestander/homebridge-philips-hue
 
 
-Control On/Off, Hue, Saturation and Brightness of a Philips Hue White and Color Ambiance Smart Light without a Bridge.
+Control On/Off and Brightness of a Philips Hue White and Color Ambiance Smart Light without a Bridge.
 
 ## Prerequisite
 
