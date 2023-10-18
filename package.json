@@ -19,12 +19,8 @@
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/Lyliya/homebridge-ledstrip-ble.git"
+        "url": "git+https://github.com/bestander/homebridge-philips-hue.git"
     },
     "author": "",
-    "license": "ISC",
-    "bugs": {
-        "url": "https://github.com/Lyliya/homebridge-ledstrip-ble/issues"
-    },
-    "homepage": "https://github.com/Lyliya/homebridge-ledstrip-ble#readme"
+    "license": "MIT"
 }
